@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import ConsumptionForm from "./components/ConsumptionForm/ConsumptionForm";
+
+import { useState } from "react";
+import FilterSortConditions from "./components/Consumption/Consumptions/FilterSortConditions";
 
 function App() {
+  const [consumptions, setConsumption] = useState([]);
+
+  const getConsumptionFormData = (formData) => {
+    setConsumption([
+      {
+        id: formData.id, //임시
+        name: formData.name,
+        cost: formData.cost,
+        type: formData.type,
+        date: formData.date,
+        memo: formData.memo,
+        repurchaseIntent: formData.repurchaseIntent,
+      },
+      ...consumptions,
+    ]);
+
+    console.log(consumptions);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ConsumptionForm getConsumptionFormData={getConsumptionFormData} />
+      <FilterSortConditions consumptions={consumptions} />
+    </>
   );
 }
 
