@@ -33,6 +33,7 @@ const ConsumptionForm = ({ getConsumptionFormData }) => {
       memo: "",
       repurchaseIntent: false,
     });
+    // setIsCheckedMemo(false);
   };
 
   const inputNameHanlder = (event) => {
@@ -138,7 +139,6 @@ const ConsumptionForm = ({ getConsumptionFormData }) => {
               id="enter-memo"
               type="text"
               onChange={inputEnterMemoHanlder}
-              disabled={!isCheckedMemo}
             />
           </>
         )}

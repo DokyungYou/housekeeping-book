@@ -5,6 +5,16 @@ const Consumptions = (props) => {
   let consumptions = props.consumptions;
   const conditions = props.conditions;
 
+  // 나중에 수정하면서 다른 곳에 둘 것 같음
+  const headers = [
+    { name: "이름", value: "name" },
+    { name: "비용", value: "cost" },
+    { name: "유형", value: "type" },
+    { name: "구입날짜", value: "date" },
+    { name: "메모내용", value: "memo" },
+    { name: "재구매의사", value: "repurchaseIntent" },
+  ];
+
   // 유형필터 ======================================
   if (conditions.type) {
     consumptions = consumptions.filter(
@@ -54,12 +64,51 @@ const Consumptions = (props) => {
       consumptions.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
 
+  // 기본 랜더링
+  // return (
+  //   <div>
+  //     {consumptions.map((consumption) => (
+  //       <ConsumptionItem consumption={consumption} key={consumption.id} />
+  //     ))}
+  //   </div>
+  // );
+
+  const headerValues = headers.map((header) => header.value);
+
+  // 테이블로 랜더링
+  // 스타일은 임시로 inline으로 적용 (선만 넣음)
   return (
-    <div>
-      {consumptions.map((consumption) => (
-        <ConsumptionItem consumption={consumption} key={consumption.id} />
-      ))}
-    </div>
+    <table>
+      <thead>
+        {headers.map((header) => (
+          <th style={{ border: "1px solid black", padding: "8px" }}>
+            {header.name}
+          </th>
+        ))}
+      </thead>
+      <tbody>
+        {consumptions.map((consumption) => (
+          <tr>
+            {headerValues.map((headerValue) => (
+              // 객체의 속성에 변수로 접근 시엔 []사용
+              <td style={{ border: "1px solid black", padding: "8px" }}>
+                {consumption[headerValue]}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 export default Consumptions;
+
+// {
+//   id: formData.id, //임시
+//   name: formData.name,
+//   cost: formData.cost,
+//   type: formData.type,
+//   date: formData.date,
+//   memo: formData.memo,
+//   repurchaseIntent: formData.repurchaseIntent,
+// },
